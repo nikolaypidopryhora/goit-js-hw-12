@@ -44,6 +44,7 @@ async function search(evt) {
   } catch (err) {
     showError('Something went wrong!');
     gallery.innerHTML = '';
+    loader.classList.add('hidden');
   }
   loader.classList.add('hidden');
   checkLoadMoreStatus();
