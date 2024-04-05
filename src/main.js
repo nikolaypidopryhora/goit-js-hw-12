@@ -31,10 +31,8 @@ async function search(evt) {
   try {
     const data = await getImages(query, currentPage);
     if (data.totalHits) {
-      loader.classList.add('hidden');
       gallery.innerHTML = renderGallery(data.hits);
       maxPage = Math.ceil(data.totalHits / perPage);
-      checkLoadMoreStatus();
       simpleLightbox.refresh();
     } else {
       showError(
@@ -47,6 +45,8 @@ async function search(evt) {
     showError('Something went wrong!');
     gallery.innerHTML = '';
   }
+  loader.classList.add('hidden');
+  checkLoadMoreStatus();
 }
 
 async function loadMore() {
@@ -55,15 +55,14 @@ async function loadMore() {
   loader.classList.remove('hidden');
   try {
     const data = await getImages(query, currentPage);
-    loader.classList.add('hidden');
     gallery.insertAdjacentHTML('beforeend', renderGallery(data.hits));
-    checkLoadMoreStatus();
-
     simpleLightbox.refresh();
   } catch (err) {
     showError('Something went wrong!');
   }
   scrollToItem();
+  checkLoadMoreStatus();
+  loader.classList.add('hidden');
 }
 
 function showLoadMore() {

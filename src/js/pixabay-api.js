@@ -4,8 +4,7 @@ export async function getImages(query, currentPage) {
   const BASE_URL = 'https://pixabay.com';
   const API_KEY = '6515730-7e532fca90fe4fa55f1852c4d';
   const END_POINT = '/api';
-
-  axios.defaults.baseURL = BASE_URL;
+  const url = `${BASE_URL}${END_POINT}?`;
 
   const params = {
     key: API_KEY,
@@ -17,6 +16,6 @@ export async function getImages(query, currentPage) {
     per_page: 15,
   };
 
-  const res = await axios.get(`${END_POINT}?`, { params });
+  const res = await axios.get(url, { params });
   return res.data;
 }
